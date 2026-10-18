@@ -3,8 +3,8 @@
 #include "Board.h"
 
 void printBoard(const Board& board) {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
+    for (int i = 0; i < Board::WIDTH; i++) {
+        for (int j = 0; j < Board::HEIGHT; j++) {
             int val = board.get_tile(std::make_pair(i, j));
             std::cout << val << " ";
         }
@@ -16,6 +16,11 @@ int main() {
 
     Board game_board;
 
+    printBoard(game_board);
+
+    game_board.move_down();
+
+    std::cout << "\n";
     printBoard(game_board);
 
     return 0;
