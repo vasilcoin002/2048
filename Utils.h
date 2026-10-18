@@ -8,7 +8,7 @@
 
 class Utils {
 public:
-    static int get_random_number(int from, int to);
+    static int randint(int from, int to);
 };
 
 

@@ -6,7 +6,7 @@
 
 #include <random>
 
-int Utils::get_random_number(int from, int to) {
+int Utils::randint(int from, int to) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> distrib(from, to);
