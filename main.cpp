@@ -20,13 +20,14 @@ int main() {
 
     printBoard(game_board);
 
-    // for (int i = 0; i < 10; i++) {
-    //     game_board.move_left();
-    //     printBoard(game_board);
-    // }
 
-    game_board.move_left();
+    // game_board.move_left();
+    // printBoard(game_board);
+    game_board.move_right();
     printBoard(game_board);
+    game_board.move_right();
+    printBoard(game_board);
+
 
     return 0;
 }

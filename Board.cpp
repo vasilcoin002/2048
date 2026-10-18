@@ -71,6 +71,28 @@ bool Board::move_tile_up(const std::pair<int, int> &coord, int &last_merged_x) {
 }
 
 bool Board::move_tile_right(const int &x, const int &y, int &last_merged_y) {
+    if (y >= WIDTH - 1) return false;
+
+    int move_to = y;
+    for (int to = y + 1; to < WIDTH; to++) {
+        if (board[x][to] == 0) move_to = to;
+        else if (board[x][to] != board[x][y] || to == last_merged_y) break;
+
+        // ... joining two tiles into one ...
+        else {
+            board[x][to] *= 2;
+            board[x][y] = 0;
+            last_merged_y = to;
+            return true;
+        }
+    }
+
+    // ... moving to empty space logic ...
+    if (move_to != y) {
+        board[x][move_to] = board[x][y];
+        board[x][y] = 0;
+        return true;
+    }
     return false;
 }
 
@@ -87,6 +109,8 @@ bool Board::move_tile_down(const std::pair<int, int> &coord, int &last_merged_x)
 }
 
 bool Board::move_tile_left(const int &x, const int &y, int &last_merged_y) {
+    if (y <= 0) return false;
+
     int move_to = y;
     for (int to = y - 1; to >= 0; to--) {
         if (board[x][to] == 0) move_to = to;
@@ -148,9 +172,9 @@ void Board::generate_board() {
     //     // generate_value(std::make_pair(x, y));
     //     create_tile();
     // }
-    set_tile(2, std::make_pair(0, 0));
-    set_tile(2, std::make_pair(0, 1));
-    set_tile(4, std::make_pair(0, 2));
+    set_tile(2, std::make_pair(0, 3));
+    set_tile(2, std::make_pair(0, 2));
+    set_tile(4, std::make_pair(0, 1));
 }
 
 
@@ -165,9 +189,25 @@ bool Board::move_up() {
 bool Board::move_right() {
     if (is_game_over) return false;
 
-    // ... moving logic ...
+    bool board_changed = false;
 
-    create_tile();
+    // ... moving logic ...
+    for (int x = 0; x < HEIGHT; x++) {
+        int last_merged_y = -1;
+
+        for (int y = WIDTH - 2; y >= 0; y--) {
+            if (get_tile(x, y) == 0) continue;
+
+            if (move_tile_right(x, y, last_merged_y)) {
+                board_changed = true;
+            }
+        }
+    }
+
+    if (board_changed) {
+        create_tile();
+    }
+    return board_changed;
 }
 
 bool Board::move_down() {
