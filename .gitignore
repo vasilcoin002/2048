@@ -1,0 +1,9 @@
+cmake-build-*/
+.cmake/
+
+.idea/
+.DS_Store
+
+2048
+*.o
+*.out
