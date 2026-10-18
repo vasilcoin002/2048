@@ -24,6 +24,7 @@ public:
     Board();
 
     int get_tile(const std::pair<int, int> &coord) const;
+    int get_tile(const int &x, const int &y);
     void set_tile(int value, const std::pair<int, int> &coord);
     bool get_is_game_over();
     bool has_winner();

@@ -18,10 +18,13 @@ int main() {
 
     printBoard(game_board);
 
-    game_board.move_down();
+    for (int i = 0; i < Board::HEIGHT * Board::WIDTH - 1; i++) {
+        game_board.move_down();
+        std::cout << "\n";
+        printBoard(game_board);
+    }
 
-    std::cout << "\n";
-    printBoard(game_board);
+    game_board.move_down();
 
     return 0;
 }

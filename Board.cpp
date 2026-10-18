@@ -46,16 +46,44 @@ void Board::create_tile() {
 }
 
 bool Board::check_game_over() {
+    if (is_game_over) return true;
 
+    for (int x = 0; x < WIDTH; x++) {
+        for (int y = 0; y < HEIGHT; y++) {
+            int tile = get_tile(x, y);
+
+            // check if it's an empty tile
+            if (tile == 0) {
+                return false;
+            }
+
+            // check if neighbour has same value (to possibly connect them together)
+            if (
+                x > 0           && tile == get_tile(x-1, y) ||
+                x < WIDTH - 1   && tile == get_tile(x+1, y) ||
+                y > 0           && tile == get_tile(x, y-1) ||
+                y < HEIGHT - 1  && tile == get_tile(x, y+1)
+            ) {
+                return false;
+            }
+        }
+    }
+
+    is_game_over = true;
+    return true;
 }
 
 Board::Board() {
     board = std::vector<std::vector<int>>(HEIGHT, std::vector<int>(WIDTH, 0));
-    this->generate_board();
+    // this->generate_board();
 }
 
 int Board::get_tile(const std::pair<int, int> &coord) const {
     return this->board[coord.first][coord.second];
+}
+
+int Board::get_tile(const int &x, const int &y) {
+    return this->board[x][y];
 }
 
 void Board::set_tile(const int value, const std::pair<int, int> &coord) {
