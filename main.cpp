@@ -10,21 +10,23 @@ void printBoard(const Board& board) {
         }
         std::cout << "\n";
     }
+    std::cout << "\n";
 }
 
 int main() {
 
     Board game_board;
+    game_board.generate_board();
 
     printBoard(game_board);
 
-    for (int i = 0; i < Board::HEIGHT * Board::WIDTH - 1; i++) {
-        game_board.move_down();
-        std::cout << "\n";
-        printBoard(game_board);
-    }
+    // for (int i = 0; i < 10; i++) {
+    //     game_board.move_left();
+    //     printBoard(game_board);
+    // }
 
-    game_board.move_down();
+    game_board.move_left();
+    printBoard(game_board);
 
     return 0;
 }
