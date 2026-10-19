@@ -189,7 +189,7 @@ int Board::get_tile(const std::pair<int, int> &coord) const {
     return this->board[coord.first][coord.second];
 }
 
-int Board::get_tile(const int &x, const int &y) {
+int Board::get_tile(const int &x, const int &y) const {
     return this->board[x][y];
 }
 
@@ -210,14 +210,8 @@ bool Board::has_winner() {
 
 void Board::generate_board() {
     for (int i = 0; i < TILES_ON_START_COUNT; i++) {
-        // int x = Utils::randint(0, WIDTH - 1);
-        // int y = Utils::randint(0, HEIGHT - 1);
-        // generate_value(std::make_pair(x, y));
         create_tile();
     }
-    // set_tile(2, std::make_pair(0, 0));
-    // set_tile(2, std::make_pair(1, 0));
-    // set_tile(4, std::make_pair(2, 0));
 }
 
 

@@ -8,4 +8,6 @@ add_executable(2048 main.cpp
         Board.h
         Utils.cpp
         Utils.h
+        BoardPrinter.cpp
+        BoardPrinter.h
 )
