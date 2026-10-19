@@ -20,14 +20,24 @@ int main() {
 
     printBoard(game_board);
 
+    while (!game_board.get_is_game_over()) {
 
-    // game_board.move_left();
-    // printBoard(game_board);
-    game_board.move_right();
-    printBoard(game_board);
-    game_board.move_right();
-    printBoard(game_board);
+        std::cout << "^\n";
+        game_board.move_up();
+        printBoard(game_board);
 
+        std::cout << "->\n";
+        game_board.move_right();
+        printBoard(game_board);
+
+        std::cout << "!\n";
+        game_board.move_down();
+        printBoard(game_board);
+
+        std::cout << "<-\n";
+        game_board.move_left();
+        printBoard(game_board);
+    }
 
     return 0;
 }

@@ -63,6 +63,28 @@ bool Board::check_game_over() {
 }
 
 bool Board::move_tile_up(const int &x, const int &y, int &last_merged_x) {
+    if (x <= 0) return false;
+
+    int move_to = x;
+    for (int to = x - 1; to >= 0; to--) {
+        if (board[to][y] == 0) move_to = to;
+        else if (board[to][y] != board[x][y] || to == last_merged_x) break;
+
+        // ... joining two tiles into one ...
+        else {
+            board[to][y] *= 2;
+            board[x][y] = 0;
+            last_merged_x = to;
+            return true;
+        }
+    }
+
+    // ... moving to empty space logic ...
+    if (move_to != x) {
+        board[move_to][y] = board[x][y];
+        board[x][y] = 0;
+        return true;
+    }
     return false;
 }
 
@@ -101,7 +123,28 @@ bool Board::move_tile_right(const std::pair<int, int> &coord, int &last_merged_y
 }
 
 bool Board::move_tile_down(const int &x, const int &y, int &last_merged_x) {
-    return false;
+    if (x >= HEIGHT - 1) return false;
+
+    int move_to = x;
+    for (int to = x + 1; to < HEIGHT; to++) {
+        if (board[to][y] == 0) move_to = to;
+        else if (board[to][y] != board[x][y] || to == last_merged_x) break;
+
+        // ... joining two tiles into one ...
+        else {
+            board[to][y] *= 2;
+            board[x][y] = 0;
+            last_merged_x = to;
+            return true;
+        }
+    }
+
+    // ... moving to empty space logic ...
+    if (move_to != x) {
+        board[move_to][y] = board[x][y];
+        board[x][y] = 0;
+        return true;
+    }
 }
 
 bool Board::move_tile_down(const std::pair<int, int> &coord, int &last_merged_x) {
@@ -166,24 +209,40 @@ bool Board::has_winner() {
 
 
 void Board::generate_board() {
-    // for (int i = 0; i < TILES_ON_START_COUNT; i++) {
-    //     // int x = Utils::randint(0, WIDTH - 1);
-    //     // int y = Utils::randint(0, HEIGHT - 1);
-    //     // generate_value(std::make_pair(x, y));
-    //     create_tile();
-    // }
-    set_tile(2, std::make_pair(0, 3));
-    set_tile(2, std::make_pair(0, 2));
-    set_tile(4, std::make_pair(0, 1));
+    for (int i = 0; i < TILES_ON_START_COUNT; i++) {
+        // int x = Utils::randint(0, WIDTH - 1);
+        // int y = Utils::randint(0, HEIGHT - 1);
+        // generate_value(std::make_pair(x, y));
+        create_tile();
+    }
+    // set_tile(2, std::make_pair(0, 0));
+    // set_tile(2, std::make_pair(1, 0));
+    // set_tile(4, std::make_pair(2, 0));
 }
 
 
 bool Board::move_up() {
     if (is_game_over) return false;
 
-    // ... moving logic ...
+    bool board_changed = false;
 
-    create_tile();
+    // ... moving logic ...
+    for (int y = 0; y < WIDTH; y++) {
+        int last_merged_x = -1;
+
+        for (int x = 1; x < HEIGHT; x++) {
+            if (get_tile(x, y) == 0) continue;
+
+            if (move_tile_up(x, y, last_merged_x)) {
+                board_changed = true;
+            }
+        }
+    }
+
+    if (board_changed) {
+        create_tile();
+    }
+    return board_changed;
 }
 
 bool Board::move_right() {
@@ -213,9 +272,25 @@ bool Board::move_right() {
 bool Board::move_down() {
     if (is_game_over) return false;
 
-    // ... moving logic ...
+    bool board_changed = false;
 
-    create_tile();
+    // ... moving logic ...
+    for (int y = 0; y < WIDTH; y++) {
+        int last_merged_x = -1;
+
+        for (int x = HEIGHT - 2; x >= 0; x--) {
+            if (get_tile(x, y) == 0) continue;
+
+            if (move_tile_down(x, y, last_merged_x)) {
+                board_changed = true;
+            }
+        }
+    }
+
+    if (board_changed) {
+        create_tile();
+    }
+    return board_changed;
 }
 
 bool Board::move_left() {
