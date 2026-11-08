@@ -8,8 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/vasklu/CLionProjects/2048/ArgParser.cpp" "CMakeFiles/2048.dir/ArgParser.cpp.o" "gcc" "CMakeFiles/2048.dir/ArgParser.cpp.o.d"
   "/Users/vasklu/CLionProjects/2048/Board.cpp" "CMakeFiles/2048.dir/Board.cpp.o" "gcc" "CMakeFiles/2048.dir/Board.cpp.o.d"
   "/Users/vasklu/CLionProjects/2048/BoardPrinter.cpp" "CMakeFiles/2048.dir/BoardPrinter.cpp.o" "gcc" "CMakeFiles/2048.dir/BoardPrinter.cpp.o.d"
+  "/Users/vasklu/CLionProjects/2048/Game.cpp" "CMakeFiles/2048.dir/Game.cpp.o" "gcc" "CMakeFiles/2048.dir/Game.cpp.o.d"
   "/Users/vasklu/CLionProjects/2048/Utils.cpp" "CMakeFiles/2048.dir/Utils.cpp.o" "gcc" "CMakeFiles/2048.dir/Utils.cpp.o.d"
   "/Users/vasklu/CLionProjects/2048/main.cpp" "CMakeFiles/2048.dir/main.cpp.o" "gcc" "CMakeFiles/2048.dir/main.cpp.o.d"
   )

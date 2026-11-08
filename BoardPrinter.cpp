@@ -58,6 +58,7 @@ void BoardPrinter::printBoard(std::ostream& out) {
 
     // numbers with whitespaces + boundaries
     const int width = Board::WIDTH * (NUM_WIDTH + TILE_PADDING * 2) + (Board::WIDTH + 1);
+    const auto last_spawned = this->board.get_last_spawned_tile();
 
     printDashesLine(out, width);
 
@@ -67,8 +68,17 @@ void BoardPrinter::printBoard(std::ostream& out) {
             out << "|";
 
             const int val = this->board.get_tile(i, j);
+            const bool is_new = (val != 0 && std::make_pair(i, j) == last_spawned);
+
+            if (is_new) {
+                out << "\033[1;92m"; // Highlight new tile: bold green text, standard background
+            }
 
             printValueWithWhitespaces(out, val, NUM_WIDTH, TILE_PADDING);
+
+            if (is_new) {
+                out << "\033[0m";
+            }
         }
         out << "|\n";
         printDashesLine(out, width);

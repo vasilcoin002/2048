@@ -29,7 +29,9 @@ void Board::create_tile() {
         return;
     }
 
-    generate_value(free_coords[Utils::randint(0, free_coords.size() - 1)]);
+    std::pair<int, int> chosen_coord = free_coords[Utils::randint(0, free_coords.size() - 1)];
+    generate_value(chosen_coord);
+    last_spawned_tile = chosen_coord;
 
     check_game_over();
 }
@@ -73,6 +75,7 @@ bool Board::move_tile_up(const int &x, const int &y, int &last_merged_x) {
         // ... joining two tiles into one ...
         else {
             board[to][y] *= 2;
+            score += board[to][y];
             board[x][y] = 0;
             last_merged_x = to;
             return true;
@@ -103,6 +106,7 @@ bool Board::move_tile_right(const int &x, const int &y, int &last_merged_y) {
         // ... joining two tiles into one ...
         else {
             board[x][to] *= 2;
+            score += board[x][to];
             board[x][y] = 0;
             last_merged_y = to;
             return true;
@@ -133,6 +137,7 @@ bool Board::move_tile_down(const int &x, const int &y, int &last_merged_x) {
         // ... joining two tiles into one ...
         else {
             board[to][y] *= 2;
+            score += board[to][y];
             board[x][y] = 0;
             last_merged_x = to;
             return true;
@@ -164,6 +169,7 @@ bool Board::move_tile_left(const int &x, const int &y, int &last_merged_y) {
         // ... joining two tiles into one ...
         else {
             board[x][to] *= 2;
+            score += board[x][to];
             board[x][y] = 0;
             last_merged_y = to;
             return true;
@@ -215,10 +221,26 @@ bool Board::has_winner() const {
 }
 
 
+int Board::get_score() const {
+    return score;
+}
+
+std::pair<int, int> Board::get_last_spawned_tile() const {
+    return last_spawned_tile;
+}
+
 void Board::generate_board() {
     for (int i = 0; i < TILES_ON_START_COUNT; i++) {
         create_tile();
     }
+}
+
+void Board::reset() {
+    board = std::vector<std::vector<int>>(HEIGHT, std::vector<int>(WIDTH, 0));
+    is_game_over = false;
+    score = 0;
+    last_spawned_tile = {-1, -1};
+    generate_board();
 }
 
 

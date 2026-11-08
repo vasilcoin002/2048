@@ -11,6 +11,8 @@ class Board {
 private:
     std::vector<std::vector<int>> board;
     bool is_game_over = false;
+    int score = 0;
+    std::pair<int, int> last_spawned_tile{-1, -1};
 
     void create_tile();
     bool check_game_over();
@@ -38,8 +40,11 @@ public:
     void set_tile(int value, const std::pair<int, int> &coord);
     bool get_is_game_over() const;
     bool has_winner() const;
+    int get_score() const;
+    std::pair<int, int> get_last_spawned_tile() const;
 
     void generate_board();
+    void reset();
 
     bool move_up();
     bool move_right();

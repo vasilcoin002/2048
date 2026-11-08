@@ -92,13 +92,6 @@ all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/vasklu/CLionProjects/2048/build/CMakeFiles 0
 .PHONY : all
 
-# The main codegen target
-codegen: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/vasklu/CLionProjects/2048/build/CMakeFiles /Users/vasklu/CLionProjects/2048/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/vasklu/CLionProjects/2048/build/CMakeFiles 0
-.PHONY : codegen
-
 # The main clean target
 clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
@@ -135,6 +128,30 @@ depend:
 2048/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/build
 .PHONY : 2048/fast
+
+ArgParser.o: ArgParser.cpp.o
+.PHONY : ArgParser.o
+
+# target to build an object file
+ArgParser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/ArgParser.cpp.o
+.PHONY : ArgParser.cpp.o
+
+ArgParser.i: ArgParser.cpp.i
+.PHONY : ArgParser.i
+
+# target to preprocess a source file
+ArgParser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/ArgParser.cpp.i
+.PHONY : ArgParser.cpp.i
+
+ArgParser.s: ArgParser.cpp.s
+.PHONY : ArgParser.s
+
+# target to generate assembly for a file
+ArgParser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/ArgParser.cpp.s
+.PHONY : ArgParser.cpp.s
 
 Board.o: Board.cpp.o
 .PHONY : Board.o
@@ -183,6 +200,30 @@ BoardPrinter.s: BoardPrinter.cpp.s
 BoardPrinter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/BoardPrinter.cpp.s
 .PHONY : BoardPrinter.cpp.s
+
+Game.o: Game.cpp.o
+.PHONY : Game.o
+
+# target to build an object file
+Game.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Game.cpp.o
+.PHONY : Game.cpp.o
+
+Game.i: Game.cpp.i
+.PHONY : Game.i
+
+# target to preprocess a source file
+Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Game.cpp.i
+.PHONY : Game.cpp.i
+
+Game.s: Game.cpp.s
+.PHONY : Game.s
+
+# target to generate assembly for a file
+Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Game.cpp.s
+.PHONY : Game.cpp.s
 
 Utils.o: Utils.cpp.o
 .PHONY : Utils.o
@@ -238,16 +279,21 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... codegen"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... 2048"
+	@echo "... ArgParser.o"
+	@echo "... ArgParser.i"
+	@echo "... ArgParser.s"
 	@echo "... Board.o"
 	@echo "... Board.i"
 	@echo "... Board.s"
 	@echo "... BoardPrinter.o"
 	@echo "... BoardPrinter.i"
 	@echo "... BoardPrinter.s"
+	@echo "... Game.o"
+	@echo "... Game.i"
+	@echo "... Game.s"
 	@echo "... Utils.o"
 	@echo "... Utils.i"
 	@echo "... Utils.s"

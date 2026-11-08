@@ -1,1 +1,1 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/2048.dir/main.cpp.o CMakeFiles/2048.dir/Board.cpp.o CMakeFiles/2048.dir/Utils.cpp.o CMakeFiles/2048.dir/BoardPrinter.cpp.o -o 2048
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/2048.dir/main.cpp.o CMakeFiles/2048.dir/Board.cpp.o CMakeFiles/2048.dir/Utils.cpp.o CMakeFiles/2048.dir/BoardPrinter.cpp.o CMakeFiles/2048.dir/Game.cpp.o CMakeFiles/2048.dir/ArgParser.cpp.o -o 2048
