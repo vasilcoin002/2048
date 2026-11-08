@@ -18,8 +18,8 @@ void Board::create_tile() {
 
     std::vector<std::pair<int, int>> free_coords = {};
 
-    for (int i = 0; i < WIDTH; i++) {
-        for (int j = 0; j < HEIGHT; j++) {
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
             if (board[i][j] == 0) {
                 free_coords.emplace_back(i, j);
             }
@@ -37,8 +37,8 @@ void Board::create_tile() {
 bool Board::check_game_over() {
     if (is_game_over) return true;
 
-    for (int x = 0; x < WIDTH; x++) {
-        for (int y = 0; y < HEIGHT; y++) {
+    for (int x = 0; x < HEIGHT; x++) {
+        for (int y = 0; y < WIDTH; y++) {
             int tile = get_tile(x, y);
 
             // check if it's an empty tile
@@ -48,10 +48,10 @@ bool Board::check_game_over() {
 
             // check if neighbour has same value (to possibly connect them together)
             if (
-                x > 0           && tile == get_tile(x-1, y) ||
-                x < WIDTH - 1   && tile == get_tile(x+1, y) ||
-                y > 0           && tile == get_tile(x, y-1) ||
-                y < HEIGHT - 1  && tile == get_tile(x, y+1)
+                (x > 0 && tile == get_tile(x - 1, y)) ||
+                (x < HEIGHT - 1 && tile == get_tile(x + 1, y)) ||
+                (y > 0 && tile == get_tile(x, y - 1)) ||
+                (y < WIDTH - 1 && tile == get_tile(x, y + 1))
             ) {
                 return false;
             }
@@ -145,6 +145,8 @@ bool Board::move_tile_down(const int &x, const int &y, int &last_merged_x) {
         board[x][y] = 0;
         return true;
     }
+
+    return false;
 }
 
 bool Board::move_tile_down(const std::pair<int, int> &coord, int &last_merged_x) {
@@ -197,14 +199,19 @@ void Board::set_tile(const int value, const std::pair<int, int> &coord) {
     this->board[coord.first][coord.second] = value;
 }
 
-bool Board::get_is_game_over() {
+bool Board::get_is_game_over() const {
     return is_game_over;
 }
 
-bool Board::has_winner() {
-    if (!is_game_over) return false;
-
-    // ... defining winner logic ...
+bool Board::has_winner() const {
+    for (int x = 0; x < HEIGHT; x++) {
+        for (int y = 0; y < WIDTH; y++) {
+            if (board[x][y] >= NUMBER_TO_WIN) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

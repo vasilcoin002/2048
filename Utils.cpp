@@ -7,11 +7,8 @@
 #include <random>
 
 int Utils::randint(int from, int to) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
+    static thread_local std::mt19937 gen(std::random_device{}());
     std::uniform_int_distribution<int> distrib(from, to);
 
-    int random_number = distrib(gen);
-
-    return random_number;
+    return distrib(gen);
 }
