@@ -51,6 +51,26 @@ void BoardPrinter::printDashesLine(std::ostream& out, const int length) {
     out << "\n";
 }
 
+const char* BoardPrinter::getTileColor(int val, bool is_new) {
+    if (val == 0) return "";
+    if (is_new) return "\033[1;92m"; // Bold green for newly spawned tile
+
+    switch (val) {
+        case 2:    return "\033[37m";   // White / Light gray
+        case 4:    return "\033[96m";   // Bright Cyan
+        case 8:    return "\033[94m";   // Bright Blue
+        case 16:   return "\033[93m";   // Bright Yellow
+        case 32:   return "\033[33m";   // Orange / Yellow
+        case 64:   return "\033[91m";   // Bright Red
+        case 128:  return "\033[31m";   // Dark Red
+        case 256:  return "\033[95m";   // Bright Magenta
+        case 512:  return "\033[35m";   // Magenta
+        case 1024: return "\033[1;36m"; // Bold Cyan
+        case 2048: return "\033[1;93m"; // Bold Golden Yellow
+        default:   return "\033[1;95m"; // Bold Bright Magenta for > 2048
+    }
+}
+
 BoardPrinter::BoardPrinter(Board &board)
     : board(board), NUM_WIDTH(getValueLength(Board::NUMBER_TO_WIN)) {}
 
@@ -70,13 +90,13 @@ void BoardPrinter::printBoard(std::ostream& out) {
             const int val = this->board.get_tile(i, j);
             const bool is_new = (val != 0 && std::make_pair(i, j) == last_spawned);
 
-            if (is_new) {
-                out << "\033[1;92m"; // Highlight new tile: bold green text, standard background
+            if (val != 0) {
+                out << getTileColor(val, is_new);
             }
 
             printValueWithWhitespaces(out, val, NUM_WIDTH, TILE_PADDING);
 
-            if (is_new) {
+            if (val != 0) {
                 out << "\033[0m";
             }
         }
