@@ -5583,7 +5583,8 @@ CMakeFiles/2048.dir/main.cpp.o: /Users/vasklu/CLionProjects/2048/main.cpp \
   /Users/vasklu/CLionProjects/2048/ArgParser.h \
   /Users/vasklu/CLionProjects/2048/Board.h \
   /Users/vasklu/CLionProjects/2048/BoardPrinter.h \
-  /Users/vasklu/CLionProjects/2048/Game.h
+  /Users/vasklu/CLionProjects/2048/Game.h \
+  /Users/vasklu/CLionProjects/2048/Utils.h
 
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/random:

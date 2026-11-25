@@ -43,14 +43,28 @@ void Game::render() {
     // Clear terminal screen and return cursor to home
     std::cout << "\033[2J\033[H";
 
+    const int cell_width = printer.computeCellNumWidth();
+    const int b_width = board.get_width();
+    const int board_line_width = b_width * (cell_width + BoardPrinter::TILE_PADDING * 2) + (b_width + 1);
+    const int header_width = std::max(40, board_line_width);
+
     // Print header
-    std::cout << "========================================\n";
-    std::cout << "               GAME 2048                \n";
-    std::cout << "========================================\n";
+    for (int i = 0; i < header_width; ++i) std::cout << "=";
+    std::cout << "\n";
+
+    int title_padding = (header_width - 9) / 2;
+    if (title_padding < 0) title_padding = 0;
+    for (int i = 0; i < title_padding; ++i) std::cout << " ";
+    std::cout << "GAME 2048\n";
+
+    for (int i = 0; i < header_width; ++i) std::cout << "=";
+    std::cout << "\n";
 
     std::cout << " Score: " << std::setw(6) << board.get_score()
               << " | Moves: " << std::setw(4) << moves_count << "\n";
-    std::cout << "----------------------------------------\n";
+
+    for (int i = 0; i < header_width; ++i) std::cout << "-";
+    std::cout << "\n";
 
     // Print board
     printer.printBoard(std::cout);

@@ -5,7 +5,7 @@
 #include <iostream>
 #include "BoardPrinter.h"
 
-int BoardPrinter::getValueLength(int val) {
+int BoardPrinter::getValueLength(int val) const {
     int length = val < 0 ? 1 : 0;
 
     if (val == 0) {
@@ -20,16 +20,30 @@ int BoardPrinter::getValueLength(int val) {
     return length;
 }
 
+int BoardPrinter::computeCellNumWidth() const {
+    int max_val = board.get_target();
+    for (int i = 0; i < board.get_height(); ++i) {
+        for (int j = 0; j < board.get_width(); ++j) {
+            int v = board.get_tile(i, j);
+            if (v > max_val) {
+                max_val = v;
+            }
+        }
+    }
+    return std::max(4, getValueLength(max_val));
+}
+
 // print number with whitespaces
-void BoardPrinter::printValueWithWhitespaces(std::ostream& out, int val, int max_num_length, int whitespace) {
+void BoardPrinter::printValueWithWhitespaces(std::ostream& out, int val, int max_num_length, int whitespace) const {
 
     for (int i = 0; i < whitespace; i++) {
         out << " ";
     }
 
     const int length = getValueLength(val);
+    const int padding_left = (max_num_length > length) ? (max_num_length - length) : 0;
 
-    for (int k = 0; k < max_num_length - length; k++) {
+    for (int k = 0; k < padding_left; k++) {
         out << " ";
     }
 
@@ -44,7 +58,7 @@ void BoardPrinter::printValueWithWhitespaces(std::ostream& out, int val, int max
     }
 }
 
-void BoardPrinter::printDashesLine(std::ostream& out, const int length) {
+void BoardPrinter::printDashesLine(std::ostream& out, const int length) const {
     for (int i = 0; i < length; i++) {
         out << '-';
     }
@@ -72,14 +86,15 @@ const char* BoardPrinter::getTileColor(int val, bool is_new) {
 }
 
 BoardPrinter::BoardPrinter(Board &board)
-    : board(board), NUM_WIDTH(getValueLength(board.get_target())) {}
+    : board(board), NUM_WIDTH(std::max(4, getValueLength(board.get_target()))) {}
 
 void BoardPrinter::printBoard(std::ostream& out) {
     const int b_width = board.get_width();
     const int b_height = board.get_height();
+    const int cell_width = computeCellNumWidth();
 
     // numbers with whitespaces + boundaries
-    const int line_width = b_width * (NUM_WIDTH + TILE_PADDING * 2) + (b_width + 1);
+    const int line_width = b_width * (cell_width + TILE_PADDING * 2) + (b_width + 1);
     const auto last_spawned = this->board.get_last_spawned_tile();
 
     printDashesLine(out, line_width);
@@ -96,7 +111,7 @@ void BoardPrinter::printBoard(std::ostream& out) {
                 out << getTileColor(val, is_new);
             }
 
-            printValueWithWhitespaces(out, val, NUM_WIDTH, TILE_PADDING);
+            printValueWithWhitespaces(out, val, cell_width, TILE_PADDING);
 
             if (val != 0) {
                 out << "\033[0m";
