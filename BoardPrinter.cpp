@@ -72,19 +72,21 @@ const char* BoardPrinter::getTileColor(int val, bool is_new) {
 }
 
 BoardPrinter::BoardPrinter(Board &board)
-    : board(board), NUM_WIDTH(getValueLength(Board::NUMBER_TO_WIN)) {}
+    : board(board), NUM_WIDTH(getValueLength(board.get_target())) {}
 
 void BoardPrinter::printBoard(std::ostream& out) {
+    const int b_width = board.get_width();
+    const int b_height = board.get_height();
 
     // numbers with whitespaces + boundaries
-    const int width = Board::WIDTH * (NUM_WIDTH + TILE_PADDING * 2) + (Board::WIDTH + 1);
+    const int line_width = b_width * (NUM_WIDTH + TILE_PADDING * 2) + (b_width + 1);
     const auto last_spawned = this->board.get_last_spawned_tile();
 
-    printDashesLine(out, width);
+    printDashesLine(out, line_width);
 
     // print "| num | num2 | ... |"
-    for (int i = 0; i < Board::HEIGHT; i++) {
-        for (int j = 0; j < Board::WIDTH; j++) {
+    for (int i = 0; i < b_height; i++) {
+        for (int j = 0; j < b_width; j++) {
             out << "|";
 
             const int val = this->board.get_tile(i, j);
@@ -101,7 +103,7 @@ void BoardPrinter::printBoard(std::ostream& out) {
             }
         }
         out << "|\n";
-        printDashesLine(out, width);
+        printDashesLine(out, line_width);
     }
 
 }

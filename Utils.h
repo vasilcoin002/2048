@@ -8,6 +8,7 @@
 
 class Utils {
 public:
+    static void set_seed(unsigned int seed);
     static int randint(int from, int to);
 };
 

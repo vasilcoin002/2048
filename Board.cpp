@@ -18,8 +18,8 @@ void Board::create_tile() {
 
     std::vector<std::pair<int, int>> free_coords = {};
 
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
             if (board[i][j] == 0) {
                 free_coords.emplace_back(i, j);
             }
@@ -39,8 +39,8 @@ void Board::create_tile() {
 bool Board::check_game_over() {
     if (is_game_over) return true;
 
-    for (int x = 0; x < HEIGHT; x++) {
-        for (int y = 0; y < WIDTH; y++) {
+    for (int x = 0; x < height; x++) {
+        for (int y = 0; y < width; y++) {
             int tile = get_tile(x, y);
 
             // check if it's an empty tile
@@ -51,9 +51,9 @@ bool Board::check_game_over() {
             // check if neighbour has same value (to possibly connect them together)
             if (
                 (x > 0 && tile == get_tile(x - 1, y)) ||
-                (x < HEIGHT - 1 && tile == get_tile(x + 1, y)) ||
+                (x < height - 1 && tile == get_tile(x + 1, y)) ||
                 (y > 0 && tile == get_tile(x, y - 1)) ||
-                (y < WIDTH - 1 && tile == get_tile(x, y + 1))
+                (y < width - 1 && tile == get_tile(x, y + 1))
             ) {
                 return false;
             }
@@ -96,10 +96,10 @@ bool Board::move_tile_up(const std::pair<int, int> &coord, int &last_merged_x) {
 }
 
 bool Board::move_tile_right(const int &x, const int &y, int &last_merged_y) {
-    if (y >= WIDTH - 1) return false;
+    if (y >= width - 1) return false;
 
     int move_to = y;
-    for (int to = y + 1; to < WIDTH; to++) {
+    for (int to = y + 1; to < width; to++) {
         if (board[x][to] == 0) move_to = to;
         else if (board[x][to] != board[x][y] || to == last_merged_y) break;
 
@@ -127,10 +127,10 @@ bool Board::move_tile_right(const std::pair<int, int> &coord, int &last_merged_y
 }
 
 bool Board::move_tile_down(const int &x, const int &y, int &last_merged_x) {
-    if (x >= HEIGHT - 1) return false;
+    if (x >= height - 1) return false;
 
     int move_to = x;
-    for (int to = x + 1; to < HEIGHT; to++) {
+    for (int to = x + 1; to < height; to++) {
         if (board[to][y] == 0) move_to = to;
         else if (board[to][y] != board[x][y] || to == last_merged_x) break;
 
@@ -189,8 +189,21 @@ bool Board::move_tile_left(const std::pair<int, int> &coord, int &last_merged_y)
     return move_tile_left(coord.first, coord.second, last_merged_y);
 }
 
-Board::Board() {
-    board = std::vector<std::vector<int>>(HEIGHT, std::vector<int>(WIDTH, 0));
+Board::Board(int width, int height, int target)
+    : width(width), height(height), target(target) {
+    board = std::vector<std::vector<int>>(height, std::vector<int>(width, 0));
+}
+
+int Board::get_width() const {
+    return width;
+}
+
+int Board::get_height() const {
+    return height;
+}
+
+int Board::get_target() const {
+    return target;
 }
 
 int Board::get_tile(const std::pair<int, int> &coord) const {
@@ -210,9 +223,9 @@ bool Board::get_is_game_over() const {
 }
 
 bool Board::has_winner() const {
-    for (int x = 0; x < HEIGHT; x++) {
-        for (int y = 0; y < WIDTH; y++) {
-            if (board[x][y] >= NUMBER_TO_WIN) {
+    for (int x = 0; x < height; x++) {
+        for (int y = 0; y < width; y++) {
+            if (board[x][y] >= target) {
                 return true;
             }
         }
@@ -236,7 +249,7 @@ void Board::generate_board() {
 }
 
 void Board::reset() {
-    board = std::vector<std::vector<int>>(HEIGHT, std::vector<int>(WIDTH, 0));
+    board = std::vector<std::vector<int>>(height, std::vector<int>(width, 0));
     is_game_over = false;
     score = 0;
     last_spawned_tile = {-1, -1};
@@ -272,10 +285,10 @@ bool Board::move_up() {
     bool board_changed = false;
 
     // ... moving logic ...
-    for (int y = 0; y < WIDTH; y++) {
+    for (int y = 0; y < width; y++) {
         int last_merged_x = -1;
 
-        for (int x = 1; x < HEIGHT; x++) {
+        for (int x = 1; x < height; x++) {
             if (get_tile(x, y) == 0) continue;
 
             if (move_tile_up(x, y, last_merged_x)) {
@@ -304,10 +317,10 @@ bool Board::move_right() {
     bool board_changed = false;
 
     // ... moving logic ...
-    for (int x = 0; x < HEIGHT; x++) {
+    for (int x = 0; x < height; x++) {
         int last_merged_y = -1;
 
-        for (int y = WIDTH - 2; y >= 0; y--) {
+        for (int y = width - 2; y >= 0; y--) {
             if (get_tile(x, y) == 0) continue;
 
             if (move_tile_right(x, y, last_merged_y)) {
@@ -336,10 +349,10 @@ bool Board::move_down() {
     bool board_changed = false;
 
     // ... moving logic ...
-    for (int y = 0; y < WIDTH; y++) {
+    for (int y = 0; y < width; y++) {
         int last_merged_x = -1;
 
-        for (int x = HEIGHT - 2; x >= 0; x--) {
+        for (int x = height - 2; x >= 0; x--) {
             if (get_tile(x, y) == 0) continue;
 
             if (move_tile_down(x, y, last_merged_x)) {
@@ -368,10 +381,10 @@ bool Board::move_left() {
     bool board_changed = false;
 
     // ... moving logic ...
-    for (int x = 0; x < HEIGHT; x++) {
+    for (int x = 0; x < height; x++) {
         int last_merged_y = -1;
 
-        for (int y = 1; y < WIDTH; y++) {
+        for (int y = 1; y < width; y++) {
             if (get_tile(x, y) == 0) continue;
 
             if (move_tile_left(x, y, last_merged_y)) {

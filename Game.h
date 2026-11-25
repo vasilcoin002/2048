@@ -20,7 +20,7 @@ private:
     void process_input();
 
 public:
-    Game();
+    Game(int width = Board::DEFAULT_WIDTH, int height = Board::DEFAULT_HEIGHT, int target = Board::DEFAULT_NUMBER_TO_WIN);
     ~Game();
 
     void run();

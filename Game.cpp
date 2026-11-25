@@ -8,7 +8,8 @@
 #include <termios.h>
 #include <unistd.h>
 
-Game::Game() : printer(board) {
+Game::Game(int width, int height, int target)
+    : board(width, height, target), printer(board) {
     board.generate_board();
 }
 
@@ -56,7 +57,7 @@ void Game::render() {
 
     // Print game status
     if (board.has_winner()) {
-        std::cout << "\033[92m*** YOU WIN! You reached 2048! ***\033[m\n";
+        std::cout << "\033[92m*** YOU WIN! You reached " << board.get_target() << "! ***\033[m\n";
     }
     if (board.get_is_game_over()) {
         std::cout << "\033[91m*** GAME OVER! No available moves left. ***\033[m\n";

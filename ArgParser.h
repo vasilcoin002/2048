@@ -10,13 +10,29 @@
 
 class ArgParser {
 private:
-    std::vector<std::string> args;
     bool help_requested = false;
+    bool has_error_flag = false;
+    std::string error_message;
+
+    int size = 4;
+    int target = 2048;
+    bool seed_set = false;
+    unsigned int seed = 0;
+
+    static bool is_power_of_two(int n);
 
 public:
     ArgParser(int argc, char* argv[]);
 
     bool is_help_requested() const;
+    bool has_error() const;
+    std::string get_error_message() const;
+
+    int get_size() const;
+    int get_target() const;
+    bool has_seed() const;
+    unsigned int get_seed() const;
+
     void print_help() const;
 };
 
