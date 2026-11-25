@@ -1,13 +1,12 @@
 # Semestrální práce B6B36PCC: Hra 2048
 
 * **Předmět:** B6B36PCC – Programování v C/C++ (ČVUT FEL)
-* **Autor:** Vasyl Kliuchkovskyi (Vas Klu)
+* **Autor:** Vasyl Klius
 * **Název projektu:** 2048 Console Game
-* **Verze / Commit hash:** `35700cb80d171a57ee23e68e17bd33da523121e2`
-* **Repozitář:** [GitLab FEL ČVUT](https://gitlab.fel.cvut.cz/)
-* **Odkazy na videa:**
-  * **Video 1 (Překlad a sestavení):** `https://gitlab.fel.cvut.cz/<login>/2048/-/raw/master/video_build.mp4`
-  * **Video 2 (Hra a testování se zvukovým komentářem):** `https://gitlab.fel.cvut.cz/<login>/2048/-/raw/master/video_game.mp4`
+* **Verze / Commit hash:** `<DOPLŇTE_HASH_POSLEDNÍHO_COMMITU>`
+* **Odkazy na testovací videa (GitLab FEL):**
+  * **Video 1 (Postup překladu):** `https://gitlab.fel.cvut.cz/<login>/2048/-/raw/master/video_build.mp4`
+  * **Video 2 (Průběh hry a testování se zvukovým komentářem):** `https://gitlab.fel.cvut.cz/<login>/2048/-/raw/master/video_game.mp4`
 
 ---
 
@@ -295,4 +294,8 @@ Testovací video demonstruje funkčnost aplikace, mezní stavy a správné reakc
 3. **Terminálové rozhraní POSIX:** IEEE Std 1003.1-2017 – *termios API, canonical and non-canonical mode*. Man termios(3).
 4. **ANSI Escape Codes:** Standard ECMA-48 – *Control Functions for Coded Character Sets*, 5th edition (1991).
 5. **Kurz B6B36PCC:** ČVUT v Praze, Fakulta elektrotechnická. *Podklady k přednáškám, cvičením a semestrální práci*. Dostupné na CourseWare ČVUT: [https://cw.fel.cvut.cz/wiki/courses/b6b36pcc/](https://cw.fel.cvut.cz/wiki/courses/b6b36pcc/).
-6. **Využití nástrojů umělé inteligence:** V souladu s pokyny zadání semestrální práce byl při vývoji využit asistenční model AI (Google Antigravity / Gemini). Nástroj byl využit pro návrh testovacích scénářů, formátování struktury dokumentace a konzultaci optimálního jednovláknového rozvržení herní smyčky. Veškerý kód byl autorem řádně prostudován, pochopen a je plně připraven k obhajobě v rámci závěrečné prezentace.
+6. **Využití nástrojů umělé inteligence:** V souladu s pravidly zadání semestrální práce byl při vývoji využit asistenční model AI (Google Antigravity / Gemini). Nástroj byl využit pro:
+   * konzultaci syntaxe a konfigurace terminálového rozhraní POSIX `termios` (přepínání do raw módu a ANSI escape sekvence),
+   * asistenci s konfigurací sestavení v `CMakeLists.txt` pro integraci a spouštění testů (CTest),
+   * návrh doplňkových testovacích scénářů a vzorových vstupů pro ověření hraničních stavů,
+   * formátování a jazykovou korekturu technické dokumentace.
