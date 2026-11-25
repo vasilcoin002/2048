@@ -96,6 +96,8 @@ void Game::process_input() {
     if (ch == 'q' || ch == 'Q') {
         is_running = false;
         return;
+    } else if (ch == '\n' || ch == '\r') {
+        return; // ignore newlines from test input files
     } else if (ch == 'u' || ch == 'U') {
         if (board.undo()) {
             if (moves_count > 0) moves_count--;

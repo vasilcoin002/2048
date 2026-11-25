@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /Users/vasklu/CLionProjects/2048/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/opt/homebrew/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -129,12 +139,26 @@ depend:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/build
 .PHONY : 2048/fast
 
+#=============================================================================
+# Target rules for targets named unit_tests
+
+# Build rule for target.
+unit_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unit_tests
+.PHONY : unit_tests
+
+# fast build rule for target.
+unit_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/build
+.PHONY : unit_tests/fast
+
 ArgParser.o: ArgParser.cpp.o
 .PHONY : ArgParser.o
 
 # target to build an object file
 ArgParser.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/ArgParser.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/ArgParser.cpp.o
 .PHONY : ArgParser.cpp.o
 
 ArgParser.i: ArgParser.cpp.i
@@ -143,6 +167,7 @@ ArgParser.i: ArgParser.cpp.i
 # target to preprocess a source file
 ArgParser.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/ArgParser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/ArgParser.cpp.i
 .PHONY : ArgParser.cpp.i
 
 ArgParser.s: ArgParser.cpp.s
@@ -151,6 +176,7 @@ ArgParser.s: ArgParser.cpp.s
 # target to generate assembly for a file
 ArgParser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/ArgParser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/ArgParser.cpp.s
 .PHONY : ArgParser.cpp.s
 
 Board.o: Board.cpp.o
@@ -159,6 +185,7 @@ Board.o: Board.cpp.o
 # target to build an object file
 Board.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Board.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/Board.cpp.o
 .PHONY : Board.cpp.o
 
 Board.i: Board.cpp.i
@@ -167,6 +194,7 @@ Board.i: Board.cpp.i
 # target to preprocess a source file
 Board.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Board.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/Board.cpp.i
 .PHONY : Board.cpp.i
 
 Board.s: Board.cpp.s
@@ -175,6 +203,7 @@ Board.s: Board.cpp.s
 # target to generate assembly for a file
 Board.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Board.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/Board.cpp.s
 .PHONY : Board.cpp.s
 
 BoardPrinter.o: BoardPrinter.cpp.o
@@ -231,6 +260,7 @@ Utils.o: Utils.cpp.o
 # target to build an object file
 Utils.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/Utils.cpp.o
 .PHONY : Utils.cpp.o
 
 Utils.i: Utils.cpp.i
@@ -239,6 +269,7 @@ Utils.i: Utils.cpp.i
 # target to preprocess a source file
 Utils.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/Utils.cpp.i
 .PHONY : Utils.cpp.i
 
 Utils.s: Utils.cpp.s
@@ -247,6 +278,7 @@ Utils.s: Utils.cpp.s
 # target to generate assembly for a file
 Utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/Utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/Utils.cpp.s
 .PHONY : Utils.cpp.s
 
 main.o: main.cpp.o
@@ -273,6 +305,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2048.dir/build.make CMakeFiles/2048.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+tests/unit_tests.o: tests/unit_tests.cpp.o
+.PHONY : tests/unit_tests.o
+
+# target to build an object file
+tests/unit_tests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/tests/unit_tests.cpp.o
+.PHONY : tests/unit_tests.cpp.o
+
+tests/unit_tests.i: tests/unit_tests.cpp.i
+.PHONY : tests/unit_tests.i
+
+# target to preprocess a source file
+tests/unit_tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/tests/unit_tests.cpp.i
+.PHONY : tests/unit_tests.cpp.i
+
+tests/unit_tests.s: tests/unit_tests.cpp.s
+.PHONY : tests/unit_tests.s
+
+# target to generate assembly for a file
+tests/unit_tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/tests/unit_tests.cpp.s
+.PHONY : tests/unit_tests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -281,7 +337,9 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... 2048"
+	@echo "... unit_tests"
 	@echo "... ArgParser.o"
 	@echo "... ArgParser.i"
 	@echo "... ArgParser.s"
@@ -300,6 +358,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... tests/unit_tests.o"
+	@echo "... tests/unit_tests.i"
+	@echo "... tests/unit_tests.s"
 .PHONY : help
 
 

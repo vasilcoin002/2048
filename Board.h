@@ -24,7 +24,6 @@ private:
     bool has_undo_state = false;
 
     void create_tile();
-    bool check_game_over();
     int generate_value(const std::pair<int, int> &coord);
 
     bool move_tile_up(const int &x, const int &y, int &last_merged_x);
@@ -50,6 +49,7 @@ public:
     int get_tile(const std::pair<int, int> &coord) const;
     int get_tile(const int &x, const int &y) const;
     void set_tile(int value, const std::pair<int, int> &coord);
+    bool check_game_over();
     bool get_is_game_over() const;
     bool has_winner() const;
     int get_score() const;

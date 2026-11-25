@@ -1,3 +1,5 @@
 /Users/vasklu/CLionProjects/2048/build/CMakeFiles/2048.dir
+/Users/vasklu/CLionProjects/2048/build/CMakeFiles/unit_tests.dir
+/Users/vasklu/CLionProjects/2048/build/CMakeFiles/test.dir
 /Users/vasklu/CLionProjects/2048/build/CMakeFiles/edit_cache.dir
 /Users/vasklu/CLionProjects/2048/build/CMakeFiles/rebuild_cache.dir
