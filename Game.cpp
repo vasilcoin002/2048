@@ -63,7 +63,7 @@ void Game::render() {
     }
 
     std::cout << "Legend:   \033[1;92m*Green*\033[0m = newly spawned tile\n";
-    std::cout << "Controls: [W/A/S/D] or Arrows: Move | [R]: Restart | [Q]: Quit\n";
+    std::cout << "Controls: [W/A/S/D] or Arrows: Move | [U]: Undo | [R]: Restart | [Q]: Quit\n";
     std::cout.flush();
 }
 
@@ -80,6 +80,11 @@ void Game::process_input() {
 
     if (ch == 'q' || ch == 'Q') {
         is_running = false;
+        return;
+    } else if (ch == 'u' || ch == 'U') {
+        if (board.undo()) {
+            if (moves_count > 0) moves_count--;
+        }
         return;
     } else if (ch == 'r' || ch == 'R') {
         board.reset();

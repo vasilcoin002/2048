@@ -240,12 +240,34 @@ void Board::reset() {
     is_game_over = false;
     score = 0;
     last_spawned_tile = {-1, -1};
+    has_undo_state = false;
     generate_board();
+}
+
+bool Board::undo() {
+    if (!has_undo_state) {
+        return false;
+    }
+
+    board = std::move(prev_board);
+    score = prev_score;
+    last_spawned_tile = prev_last_spawned_tile;
+    is_game_over = false;
+    has_undo_state = false;
+    return true;
+}
+
+bool Board::can_undo() const {
+    return has_undo_state;
 }
 
 
 bool Board::move_up() {
     if (is_game_over) return false;
+
+    auto backup_board = board;
+    int backup_score = score;
+    auto backup_spawned = last_spawned_tile;
 
     bool board_changed = false;
 
@@ -263,6 +285,10 @@ bool Board::move_up() {
     }
 
     if (board_changed) {
+        prev_board = std::move(backup_board);
+        prev_score = backup_score;
+        prev_last_spawned_tile = backup_spawned;
+        has_undo_state = true;
         create_tile();
     }
     return board_changed;
@@ -270,6 +296,10 @@ bool Board::move_up() {
 
 bool Board::move_right() {
     if (is_game_over) return false;
+
+    auto backup_board = board;
+    int backup_score = score;
+    auto backup_spawned = last_spawned_tile;
 
     bool board_changed = false;
 
@@ -287,6 +317,10 @@ bool Board::move_right() {
     }
 
     if (board_changed) {
+        prev_board = std::move(backup_board);
+        prev_score = backup_score;
+        prev_last_spawned_tile = backup_spawned;
+        has_undo_state = true;
         create_tile();
     }
     return board_changed;
@@ -294,6 +328,10 @@ bool Board::move_right() {
 
 bool Board::move_down() {
     if (is_game_over) return false;
+
+    auto backup_board = board;
+    int backup_score = score;
+    auto backup_spawned = last_spawned_tile;
 
     bool board_changed = false;
 
@@ -311,6 +349,10 @@ bool Board::move_down() {
     }
 
     if (board_changed) {
+        prev_board = std::move(backup_board);
+        prev_score = backup_score;
+        prev_last_spawned_tile = backup_spawned;
+        has_undo_state = true;
         create_tile();
     }
     return board_changed;
@@ -318,6 +360,10 @@ bool Board::move_down() {
 
 bool Board::move_left() {
     if (is_game_over) return false;
+
+    auto backup_board = board;
+    int backup_score = score;
+    auto backup_spawned = last_spawned_tile;
 
     bool board_changed = false;
 
@@ -335,6 +381,10 @@ bool Board::move_left() {
     }
 
     if (board_changed) {
+        prev_board = std::move(backup_board);
+        prev_score = backup_score;
+        prev_last_spawned_tile = backup_spawned;
+        has_undo_state = true;
         create_tile();
     }
     return board_changed;

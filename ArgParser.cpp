@@ -30,6 +30,7 @@ void ArgParser::print_help() const {
     std::cout << "  S / Down Arrow    Move tiles DOWN\n";
     std::cout << "  A / Left Arrow    Move tiles LEFT\n";
     std::cout << "  D / Right Arrow   Move tiles RIGHT\n";
+    std::cout << "  U                 Undo the last move\n";
     std::cout << "  R                 Restart the game\n";
     std::cout << "  Q / Esc           Quit the game\n\n";
     std::cout << "Visuals:\n";

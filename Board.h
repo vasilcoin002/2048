@@ -14,6 +14,12 @@ private:
     int score = 0;
     std::pair<int, int> last_spawned_tile{-1, -1};
 
+    // Undo state
+    std::vector<std::vector<int>> prev_board;
+    int prev_score = 0;
+    std::pair<int, int> prev_last_spawned_tile{-1, -1};
+    bool has_undo_state = false;
+
     void create_tile();
     bool check_game_over();
     int generate_value(const std::pair<int, int> &coord);
@@ -45,6 +51,8 @@ public:
 
     void generate_board();
     void reset();
+    bool undo();
+    bool can_undo() const;
 
     bool move_up();
     bool move_right();
