@@ -4,9 +4,10 @@
 * **Autor:** Vasyl Klius
 * **Název projektu:** 2048 Console Game
 * **Verze / Commit hash:** `<DOPLŇTE_HASH_POSLEDNÍHO_COMMITU>`
+* **Prezentace:** `https://gitlab.fel.cvut.cz/kliusvas/2048/docs/Prezentace2048VasylKlius.pdf`
 * **Odkazy na testovací videa (GitLab FEL):**
-  * **Video 1 (Postup překladu):** `https://gitlab.fel.cvut.cz/<login>/2048/-/raw/master/video_build.mp4`
-  * **Video 2 (Průběh hry a testování se zvukovým komentářem):** `https://gitlab.fel.cvut.cz/<login>/2048/-/raw/master/video_game.mp4`
+  * **Video 1 (Postup překladu):** `https://gitlab.fel.cvut.cz/kliusvas/2048/docs/video_build.mp4`
+  * **Video 2 (Průběh hry a testování se zvukovým komentářem):** `https://gitlab.fel.cvut.cz/kliusvas/2048/docs/video_game.mp4`
 
 ---
 
